@@ -1,0 +1,35 @@
+/* 1. On importe les polices */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;700&display=swap');
+
+/* 2. On active Tailwind (Nouvelle méthode v4) */
+@import "tailwindcss";
+
+/* 3. On configure ton thème (Polices et Animations) ici */
+@theme {
+  --font-sans: "Oswald", sans-serif;
+  --font-anton: "Anton", sans-serif;
+
+  --animate-marquee: marquee 25s linear infinite;
+  
+  @keyframes marquee {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+}
+
+/* 4. Styles personnalisés pour la scrollbar */
+body {
+  background-color: #0f172a; /* Slate-900 */
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a; 
+}
+::-webkit-scrollbar-thumb {
+  background: #dc2626; 
+  border-radius: 4px;
+}
