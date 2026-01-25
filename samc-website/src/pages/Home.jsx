@@ -205,13 +205,6 @@ const Home = () => {
                   <span>Appel 911</span>
                 </div>
               </button>
-
-              <button className="group px-12 py-6 border border-white/20 bg-white/5 text-white font-bold uppercase tracking-[0.2em] backdrop-blur-sm transform skew-x-[-10deg] hover:bg-white hover:text-black transition-all">
-                <div className="skew-x-[10deg] flex items-center gap-4">
-                  <Radio className="w-5 h-5" />
-                  <span>Fréquence Radio</span>
-                </div>
-              </button>
             </div>
           </div>
         </div>
