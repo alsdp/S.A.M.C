@@ -1,205 +1,262 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Stethoscope, Calendar, Activity, Crosshair, HeartHandshake, Info, Users, CheckCircle } from 'lucide-react';
+import { 
+  ArrowLeft, Stethoscope, Activity, Siren, 
+  HeartPulse, ShieldAlert, Microscope, ChevronRight 
+} from 'lucide-react';
 
 const Surgery = () => {
-  // Remonter en haut de page au chargement
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="min-h-screen bg-[#050b14] text-white font-sans selection:bg-blue-600">
+    <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-cyan-500/30 overflow-x-hidden">
       
-      {/* Background Ambiances */}
+      {/* --- AMBIANCE DE FOND (GRID & GLOW) --- */}
       <div className="fixed inset-0 pointer-events-none z-0">
-         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[200px] opacity-10"></div>
-         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600 rounded-full blur-[150px] opacity-5"></div>
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+         {/* Grille technique en fond */}
+         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
+         {/* Lueurs d'ambiance */}
+         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"></div>
+         <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* --- HEADER --- */}
-      <header className="relative h-[80vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1920" 
-            alt="Surgery Block" 
-            className="w-full h-full object-cover opacity-30" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050b14] via-[#050b14]/90 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-transparent to-transparent"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6 pt-20">
-          <Link to="/" className="inline-flex items-center gap-2 text-blue-400 hover:text-white transition mb-8 font-mono text-xs uppercase tracking-widest group">
-             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Retour au QG
+      {/* --- HEADER IMMERSIF --- */}
+      <header className="relative pt-24 pb-12 overflow-hidden z-10">
+        <div className="container mx-auto px-6 relative">
+          
+          {/* Fil d'ariane stylisé */}
+          <Link to="/" className="inline-flex items-center gap-2 text-cyan-500 hover:text-cyan-300 transition-colors mb-10 font-mono text-xs uppercase tracking-[0.2em] border-b border-cyan-500/30 pb-1">
+             <ArrowLeft className="w-3 h-3" /> Retour au Dashboard
           </Link>
 
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-4 mb-6">
-               <div className="p-3 bg-blue-600/20 border border-blue-500/50 rounded">
-                  <Stethoscope className="w-8 h-8 text-blue-400" />
-               </div>
-               <span className="text-blue-500 font-mono text-sm tracking-[0.3em] uppercase">S.C.S • Surgery Care Service</span>
+          <div className="flex flex-col md:flex-row items-end justify-between gap-8">
+            <div className="max-w-4xl">
+              <div className="flex items-center gap-3 mb-4">
+                 <div className="h-px w-8 bg-cyan-500"></div>
+                 <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest">Département Prioritaire</span>
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl font-black uppercase text-white leading-[0.9] tracking-tighter mb-6">
+                Bloc <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Opératoire</span>
+              </h1>
+              
+              <p className="text-xl text-slate-400 max-w-2xl leading-relaxed border-l-2 border-cyan-500/50 pl-6">
+                Le <strong className="text-white">Service de Chirurgie (S.C.S)</strong> représente l'élite technique de l'hôpital. 
+                Spécialisé en traumatologie lourde et interventions d'urgence, notre plateau technique 
+                est le dernier rempart quand le pronostic vital est engagé.
+              </p>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-anton uppercase tracking-tight text-white mb-6 leading-none">
-              Pôle de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Chirurgie</span>
-            </h1>
-            
-            <p className="text-gray-400 text-lg leading-relaxed border-l-4 border-blue-600 pl-6 bg-blue-900/10 py-4 pr-4 rounded-r-lg backdrop-blur-sm">
-              Le pôle de chirurgie, aussi connu sous le nom de <strong>S.C.S</strong>, représente une composante essentielle de l'hôpital, se consacrant aux interventions chirurgicales. Les chirurgiens interviennent lorsque des traitements nécessitent une intervention manuelle ou instrumentale sur un patient pour effectuer des opérations visant à traiter ou soulager une pathologie.
-            </p>
+
+            {/* Indicateur de Status (Décoratif) */}
+            <div className="hidden md:block text-right">
+                <div className="flex items-center gap-2 justify-end text-emerald-400 font-mono text-sm mb-1">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    OPÉRATIONNEL
+                </div>
+                <div className="text-slate-500 text-xs font-mono">SYS.V.2.0.4 // ONLINE</div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* --- STATISTIQUES CLÉS --- */}
-      <div className="bg-blue-950/30 border-y border-white/5 backdrop-blur-md relative z-20 -mt-20">
-         <div className="container mx-auto px-6 py-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-               
-               {/* Stat 1 */}
-               <div className="px-4">
-                  <div className="flex justify-center mb-3">
-                     <Calendar className="w-8 h-8 text-blue-500" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">2023</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-400">Année de Fondation</div>
-               </div>
+      {/* --- STATS HUD --- */}
+      <div className="border-y border-white/5 bg-slate-900/40 backdrop-blur-sm z-20 relative">
+         <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/5">
+                
+                {/* Stat 1 */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-blue-500/10 rounded group-hover:bg-blue-500/20 transition">
+                        <Activity className="w-6 h-6 text-blue-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">24/7</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Disponibilité</div>
+                    </div>
+                </div>
 
-               {/* Stat 2 */}
-               <div className="px-4 pt-8 md:pt-0">
-                  <div className="flex justify-center mb-3">
-                     <Activity className="w-8 h-8 text-blue-500" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">50+</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-400">Opérations par semaine</div>
-               </div>
+                {/* Stat 2 */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-cyan-500/10 rounded group-hover:bg-cyan-500/20 transition">
+                        <Stethoscope className="w-6 h-6 text-cyan-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">Type A</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Traumatologie</div>
+                    </div>
+                </div>
 
-               {/* Stat 3 */}
-               <div className="px-4 pt-8 md:pt-0">
-                  <div className="flex justify-center mb-3">
-                     <Crosshair className="w-8 h-8 text-red-500 animate-pulse" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">PAR BALLE</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-400">Opération la plus courante</div>
-               </div>
+                {/* Stat 3 (Funny/RP but stylized styled as warning) */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-red-500/10 rounded group-hover:bg-red-500/20 transition">
+                        <Siren className="w-6 h-6 text-red-500 animate-pulse" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-red-500 font-mono">GSW</div>
+                        <div className="text-[10px] uppercase tracking-widest text-red-400/60">Spécialité (Balles)</div>
+                    </div>
+                </div>
+
+                 {/* Stat 4 */}
+                 <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-purple-500/10 rounded group-hover:bg-purple-500/20 transition">
+                        <Microscope className="w-6 h-6 text-purple-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">100%</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Asepsie</div>
+                    </div>
+                </div>
 
             </div>
          </div>
       </div>
 
       {/* --- CONTENU PRINCIPAL --- */}
-      <div className="container mx-auto px-6 py-24 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-           
-           {/* GAUCHE : LA MISSION */}
-           <div className="space-y-8">
-              <h2 className="text-4xl font-anton uppercase text-white flex items-center gap-3">
-                 <span className="w-2 h-8 bg-blue-600"></span> La Mission
-              </h2>
-              <div className="prose prose-invert text-gray-300 leading-loose">
-                 <p>
-                    Assurer des soins chirurgicaux de haute qualité, respectueux et sécurisés, en mettant le patient au cœur de chaque intervention.
-                 </p>
-                 <p>
-                    Offrir un accompagnement personnalisé avant, pendant et après l’opération, en fournissant des informations claires et un soutien adapté.
-                 </p>
-                 <p>
-                    Coordonner efficacement les ressources médicales et les équipes pour garantir une prise en charge complète et un parcours de soins fluide, visant à optimiser la récupération et le bien-être de chaque patient.
-                 </p>
-              </div>
-
-              {/* Barres de réussite */}
-              <div className="bg-[#0a101f] p-8 border border-white/5 rounded-lg space-y-8 mt-8">
-                 
-                 {/* Barre 1 */}
-                 <div>
-                    <div className="flex justify-between items-end mb-2">
-                       <span className="font-bold uppercase text-sm">Opérations Réussies</span>
-                       <span className="text-2xl font-anton text-green-400">90%</span>
+      <div className="container mx-auto px-6 py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            {/* GAUCHE : LE MANIFESTE (Largeur 7/12) */}
+            <div className="lg:col-span-7 space-y-12">
+                
+                {/* Section Introduction */}
+                <div className="bg-gradient-to-br from-slate-900 to-slate-900/50 border border-white/10 p-8 rounded-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-blue-600"></div>
+                    <h2 className="text-3xl font-bold text-white mb-6 font-mono flex items-center gap-3">
+                        <span className="text-blue-500">01.</span> NOS MISSIONS
+                    </h2>
+                    <div className="space-y-4 text-slate-300 leading-loose text-justify">
+                        <p>
+                            Le service de chirurgie n'est pas une simple salle d'opération, c'est un <span className="text-white font-semibold">sanctuaire de survie</span>. Nos équipes interviennent dans des contextes de haute intensité (fusillades, accidents graves à haute cinétique) où chaque seconde détermine l'issue du patient.
+                        </p>
+                        <p>
+                            Notre doctrine est simple : stabiliser, réparer, réhabiliter. De l'extraction de projectiles à la réparation d'organes vitaux, le S.C.S dispose des technologies les plus avancées de l'État pour garantir une prise en charge optimale.
+                        </p>
                     </div>
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                       <div className="h-full bg-green-500 w-[90%] shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                </div>
+
+                {/* Section Compétences avec barres techniques */}
+                <div>
+                     <h3 className="text-xl font-bold text-white mb-6 font-mono flex items-center gap-3">
+                        <span className="text-blue-500">02.</span> TAUX DE RÉUSSITE
+                    </h3>
+                    
+                    <div className="space-y-6">
+                        {/* Barre 1 */}
+                        <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-cyan-400">
+                                <span>Chirurgie Viscérale</span>
+                                <span>94%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-cyan-500 w-[94%] shadow-[0_0_15px_rgba(6,182,212,0.5)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Barre 2 */}
+                        <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-blue-400">
+                                <span>Extraction Balistique</span>
+                                <span>98%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-blue-600 w-[98%] shadow-[0_0_15px_rgba(37,99,235,0.5)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                         {/* Barre 3 */}
+                         <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-purple-400">
+                                <span>Neurochirurgie</span>
+                                <span>82%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-purple-600 w-[82%] shadow-[0_0_15px_rgba(147,51,234,0.5)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                 </div>
+                </div>
+            </div>
 
-                 {/* Barre 2 */}
-                 <div>
-                    <div className="flex justify-between items-end mb-2">
-                       <span className="font-bold uppercase text-sm">Traitement Cancer Réussi</span>
-                       <span className="text-2xl font-anton text-blue-400">75%</span>
+            {/* DROITE : PROTOCOLES (Largeur 5/12) */}
+            <div className="lg:col-span-5 space-y-6">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-2">
+                    <h2 className="text-xl font-bold text-white font-mono">PROTOCOLES S.C.S</h2>
+                    <ShieldAlert className="w-5 h-5 text-slate-500" />
+                </div>
+
+                {/* Card 1 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-cyan-500/50 p-6 rounded transition-all duration-300">
+                    <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-cyan-400" />
                     </div>
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                       <div className="h-full bg-blue-500 w-[75%] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <HeartPulse className="w-8 h-8 text-cyan-500" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">PRISE EN CHARGE</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Analyse immédiate des constantes vitales. Mise en condition du patient (Code Rouge/Noir). Préparation stérile du champ opératoire.
+                            </p>
+                        </div>
                     </div>
-                 </div>
+                </div>
 
-              </div>
-           </div>
-
-           {/* DROITE : RÉSULTATS ATTENDUS */}
-           <div>
-              <h2 className="text-4xl font-anton uppercase text-white mb-10 flex items-center gap-3">
-                 <span className="w-2 h-8 bg-white"></span> Résultats Attendus
-              </h2>
-              
-              <div className="space-y-6">
-                 
-                 {/* Card 1 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-blue-500 transition-colors duration-300">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-blue-600/20 p-3 rounded">
-                          <HeartHandshake className="w-6 h-6 text-blue-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-blue-400 transition-colors">Prise en Charge Respectueuse</h3>
-                          <ul className="list-disc list-inside text-gray-400 text-sm space-y-1">
-                             <li>Soins chirurgicaux sécurisés et adaptés.</li>
-                             <li>Garantie de la dignité et de l'intimité du patient.</li>
-                             <li>Confort assuré avant, pendant et après l'intervention.</li>
-                          </ul>
-                       </div>
+                {/* Card 2 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-blue-500/50 p-6 rounded transition-all duration-300">
+                     <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-blue-400" />
                     </div>
-                 </div>
-
-                 {/* Card 2 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-blue-500 transition-colors duration-300">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-blue-600/20 p-3 rounded">
-                          <Info className="w-6 h-6 text-blue-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-blue-400 transition-colors">Accompagnement & Information</h3>
-                          <ul className="list-disc list-inside text-gray-400 text-sm space-y-1">
-                             <li>Informations claires sur les risques et le suivi.</li>
-                             <li>Soutien psychologique pour les patients anxieux.</li>
-                             <li>Transparence totale sur les procédures complexes.</li>
-                          </ul>
-                       </div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <Activity className="w-8 h-8 text-blue-500" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">INTERVENTION</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Actes chirurgicaux sous anesthésie générale ou locale. Utilisation de coagulants avancés et surveillance moniteur cardiaque en temps réel.
+                            </p>
+                        </div>
                     </div>
-                 </div>
+                </div>
 
-                 {/* Card 3 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-blue-500 transition-colors duration-300">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-blue-600/20 p-3 rounded">
-                          <Users className="w-6 h-6 text-blue-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-blue-400 transition-colors">Coordination & Suivi</h3>
-                          <ul className="list-disc list-inside text-gray-400 text-sm space-y-1">
-                             <li>Organisation efficace minimisant l'attente.</li>
-                             <li>Optimisation de la récupération post-opératoire.</li>
-                             <li>Lien fluide entre équipes chirurgicales et autres services.</li>
-                          </ul>
-                       </div>
+                {/* Card 3 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-purple-500/50 p-6 rounded transition-all duration-300">
+                     <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-purple-400" />
                     </div>
-                 </div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <Stethoscope className="w-8 h-8 text-purple-500" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">SUIVI POST-OP</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Transfert en salle de réveil. Prescription d'antalgiques majeurs. Rééducation fonctionnelle programmée avec les services annexes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-              </div>
-           </div>
+                {/* Zone de Call to Action RP */}
+                <div className="mt-8 p-4 border border-dashed border-slate-700 rounded bg-slate-900/50 text-center">
+                    <p className="text-xs text-slate-500 font-mono uppercase mb-2">Besoin d'une consultation ?</p>
+                    <button className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded font-bold text-sm transition-colors w-full uppercase tracking-widest">
+                        Contacter un Chirurgien
+                    </button>
+                </div>
 
+            </div>
         </div>
       </div>
 

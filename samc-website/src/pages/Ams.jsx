@@ -1,195 +1,267 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Skull, Calendar, Users, HeartHandshake, Truck, FileText, ClipboardList } from 'lucide-react';
+import { 
+  ArrowLeft, Skull, HeartHandshake, Truck, 
+  FileText, ClipboardList, Shield, Hourglass, ChevronRight, UserMinus 
+} from 'lucide-react';
 
 const Ams = () => {
-  // Remonter en haut de page au chargement
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="min-h-screen bg-[#050b14] text-white font-sans selection:bg-gray-500">
+    <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-slate-500/30 overflow-x-hidden">
       
-      {/* Background Ambiances (Gris/Acier) */}
+      {/* --- AMBIANCE DE FOND (GRID & GLOW GRIS) --- */}
       <div className="fixed inset-0 pointer-events-none z-0">
-         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gray-600 rounded-full blur-[200px] opacity-10"></div>
-         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-800 rounded-full blur-[150px] opacity-20"></div>
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+         {/* Grille technique */}
+         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
+         {/* Lueurs d'ambiance (Plus sombres et froides) */}
+         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-slate-600/20 rounded-full blur-[120px]"></div>
+         <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-gray-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* --- HEADER --- */}
-      <header className="relative h-[85vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=1920" 
-            alt="Forensic Lab" 
-            className="w-full h-full object-cover opacity-30 grayscale" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050b14] via-[#050b14]/90 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-transparent to-transparent"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6 pt-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition mb-8 font-mono text-xs uppercase tracking-widest group">
-             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Retour au QG
+      {/* --- HEADER IMMERSIF --- */}
+      <header className="relative pt-24 pb-12 overflow-hidden z-10">
+        <div className="container mx-auto px-6 relative">
+          
+          {/* Fil d'ariane */}
+          <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-10 font-mono text-xs uppercase tracking-[0.2em] border-b border-slate-500/30 pb-1">
+             <ArrowLeft className="w-3 h-3" /> Retour au Dashboard
           </Link>
 
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-6">
-               <div className="p-3 bg-gray-600/20 border border-gray-500/50 rounded">
-                  <Skull className="w-8 h-8 text-gray-400" />
-               </div>
-               <span className="text-gray-500 font-mono text-sm tracking-[0.3em] uppercase">A.M.S • Ambulatory Mortuary Service</span>
+          <div className="flex flex-col md:flex-row items-end justify-between gap-8">
+            <div className="max-w-4xl">
+              <div className="flex items-center gap-3 mb-4">
+                 <div className="h-px w-8 bg-slate-500"></div>
+                 <span className="text-slate-400 font-mono text-xs uppercase tracking-widest">Service Funéraire & Légiste</span>
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl font-black uppercase text-white leading-[0.9] tracking-tighter mb-6">
+                Ambulatory <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-slate-600">Mortuary</span>
+              </h1>
+              
+              <p className="text-xl text-slate-400 max-w-2xl leading-relaxed border-l-2 border-slate-500/50 pl-6">
+                 Le <strong className="text-white">A.M.S (Ambulatory Mortuary Service)</strong> est l'unité la plus silencieuse mais la plus essentielle du S.A.M.C.
+                 Nous assurons le respect de la dignité humaine au-delà de la vie, en garantissant une prise en charge éthique, légale et sanitaire des défunts.
+              </p>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-anton uppercase tracking-tight text-white mb-6 leading-none">
-              Ambulatory <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-slate-600">Mortuary</span>
-            </h1>
-            
-            <p className="text-gray-300 text-lg leading-relaxed border-l-4 border-gray-600 pl-6 bg-gray-900/10 py-6 pr-6 rounded-r-lg backdrop-blur-sm">
-              Le Service Mortuaire Ambulatoire du S.A.M.C. assure un accompagnement respectueux et professionnel dans la prise en charge des défunts. 
-              <br/><br/>
-              Ce service se distingue par une approche humaine, garantissant dignité et respect aux patients décédés et un soutien chaleureux à leurs proches.
-            </p>
+
+            {/* Indicateur de Status */}
+            <div className="hidden md:block text-right">
+                <div className="flex items-center gap-2 justify-end text-slate-400 font-mono text-sm mb-1">
+                    <span className="relative flex h-3 w-3">
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-slate-500"></span>
+                    </span>
+                    ZONE FROIDE ACTIVE
+                </div>
+                <div className="text-slate-600 text-xs font-mono">TEMP -4°C // STABLE</div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* --- STATISTIQUES CLÉS --- */}
-      <div className="bg-[#0a0a0f]/50 border-y border-white/5 backdrop-blur-md relative z-20 -mt-20">
-         <div className="container mx-auto px-6 py-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-               
-               {/* Stat 1 */}
-               <div className="px-4">
-                  <div className="flex justify-center mb-3">
-                     <Calendar className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">2023</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-500">Fondé en</div>
-               </div>
+      {/* --- STATS HUD --- */}
+      <div className="border-y border-white/5 bg-slate-900/40 backdrop-blur-sm z-20 relative">
+         <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/5">
+                
+                {/* Stat 1 */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-slate-500/10 rounded group-hover:bg-slate-500/20 transition">
+                        <UserMinus className="w-6 h-6 text-slate-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">300+</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Prises en Charge / Mois</div>
+                    </div>
+                </div>
 
-               {/* Stat 2 */}
-               <div className="px-4 pt-8 md:pt-0">
-                  <div className="flex justify-center mb-3">
-                     <Skull className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">300+</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-500">Décès par mois</div>
-               </div>
+                {/* Stat 2 */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-gray-500/10 rounded group-hover:bg-gray-500/20 transition">
+                        <Truck className="w-6 h-6 text-gray-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">24/7</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Réponse Rapide</div>
+                    </div>
+                </div>
 
-               {/* Stat 3 */}
-               <div className="px-4 pt-8 md:pt-0">
-                  <div className="flex justify-center mb-3">
-                     <Users className="w-8 h-8 text-slate-400" />
-                  </div>
-                  <div className="text-4xl font-anton text-white mb-1">5,000+</div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-gray-500">Familles accompagnées</div>
-               </div>
+                {/* Stat 3 */}
+                <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-zinc-500/10 rounded group-hover:bg-zinc-500/20 transition">
+                        <FileText className="w-6 h-6 text-zinc-400" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">LÉGAL</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Conformité Totale</div>
+                    </div>
+                </div>
+
+                 {/* Stat 4 */}
+                 <div className="py-6 md:px-6 flex items-center gap-4 group cursor-default">
+                    <div className="p-3 bg-slate-700/10 rounded group-hover:bg-slate-700/20 transition">
+                        <Hourglass className="w-6 h-6 text-slate-300" />
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-white font-mono">2023</div>
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500">Année de Fondation</div>
+                    </div>
+                </div>
 
             </div>
          </div>
       </div>
 
       {/* --- CONTENU PRINCIPAL --- */}
-      <div className="container mx-auto px-6 py-24 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-           
-           {/* GAUCHE : LA MISSION */}
-           <div className="space-y-8">
-              <h2 className="text-4xl font-anton uppercase text-white flex items-center gap-3">
-                 <span className="w-2 h-8 bg-gray-500"></span> La Mission
-              </h2>
-              <div className="prose prose-invert text-gray-300 leading-loose text-lg">
-                 <p>
-                    Fournir un accompagnement professionnel et bienveillant pour le transfert et la gestion des défunts, tout en soutenant les familles dans cette période de deuil.
-                 </p>
-              </div>
-
-              {/* Barres de réussite / Focus */}
-              <div className="bg-[#0f1116] p-8 border border-gray-500/20 rounded-lg space-y-8 mt-8">
-                 
-                 {/* Barre 1 */}
-                 <div>
-                    <div className="flex justify-between items-end mb-2">
-                       <span className="font-bold uppercase text-sm text-gray-300">Respect des Protocoles</span>
-                       <span className="text-2xl font-anton text-green-400">100%</span>
+      <div className="container mx-auto px-6 py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            {/* GAUCHE : LE MANIFESTE (Largeur 7/12) */}
+            <div className="lg:col-span-7 space-y-12">
+                
+                {/* Intro Section */}
+                <div className="bg-slate-900/50 border border-slate-500/30 p-8 rounded-tr-3xl relative overflow-hidden group hover:border-slate-500/50 transition-colors">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-slate-500"></div>
+                    <div className="absolute -right-6 -bottom-6 text-slate-800/20 group-hover:text-slate-700/20 transition-colors">
+                        <Skull className="w-32 h-32" />
                     </div>
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                       <div className="h-full bg-green-500 w-[100%] shadow-[0_0_10px_rgba(34,197,94,0.3)]"></div>
+                    
+                    <div className="relative z-10">
+                         <h2 className="text-3xl font-bold text-white mb-6 font-mono flex items-center gap-3">
+                            <span className="text-slate-500">01.</span> NOTRE CODE D'HONNEUR
+                        </h2>
+                        <div className="space-y-4 text-slate-300 leading-loose text-justify font-light">
+                            <p>
+                                Le service A.M.S. opère dans l'ombre, mais son rôle est crucial pour l'équilibre de la société. Nous traitons la mort avec le même professionnalisme que la chirurgie traite la vie.
+                            </p>
+                            <p>
+                                De la levée de corps sur scène de crime à la préparation finale, nos agents mortuaires suivent des protocoles stricts pour garantir l'intégrité des preuves (si nécessaire) et le respect absolu des familles endeuillées.
+                            </p>
+                        </div>
                     </div>
-                 </div>
+                </div>
 
-                 {/* Barre 2 */}
-                 <div>
-                    <div className="flex justify-between items-end mb-2">
-                       <span className="font-bold uppercase text-sm text-gray-300">Satisfaction des Familles</span>
-                       <span className="text-2xl font-anton text-blue-400">98%</span>
+                {/* Section Compétences (Stats Barres) */}
+                <div>
+                     <h3 className="text-xl font-bold text-white mb-6 font-mono flex items-center gap-3">
+                        <span className="text-slate-500">02.</span> RIGOUREUX & EFFICACE
+                    </h3>
+                    
+                    <div className="space-y-6">
+                        {/* Barre 1 */}
+                        <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-green-400">
+                                <span>Respect des Protocoles Sanitaires</span>
+                                <span>100%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-green-500 w-[100%] shadow-[0_0_15px_rgba(34,197,94,0.3)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Barre 2 */}
+                        <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-blue-400">
+                                <span>Satisfaction des Familles</span>
+                                <span>98%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-blue-500 w-[98%] shadow-[0_0_15px_rgba(59,130,246,0.3)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                         {/* Barre 3 */}
+                         <div className="relative group">
+                            <div className="flex justify-between mb-2 text-xs font-mono uppercase tracking-wider text-slate-400">
+                                <span>Rapidité d'Intervention</span>
+                                <span>95%</span>
+                            </div>
+                            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-slate-500 w-[95%] shadow-[0_0_15px_rgba(100,116,139,0.3)] relative">
+                                    <div className="absolute right-0 top-0 h-full w-1 bg-white/50"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                       <div className="h-full bg-blue-500 w-[98%] shadow-[0_0_10px_rgba(59,130,246,0.3)]"></div>
+                </div>
+            </div>
+
+            {/* DROITE : SERVICES (Largeur 5/12) */}
+            <div className="lg:col-span-5 space-y-6">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-2">
+                    <h2 className="text-xl font-bold text-white font-mono">DOMAINES D'INTERVENTION</h2>
+                    <Shield className="w-5 h-5 text-slate-500" />
+                </div>
+
+                {/* Card 1 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-slate-500/50 p-6 rounded transition-all duration-300">
+                    <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-slate-400" />
                     </div>
-                 </div>
-
-              </div>
-           </div>
-
-           {/* DROITE : RÉSULTATS ATTENDUS */}
-           <div>
-              <h2 className="text-4xl font-anton uppercase text-white mb-10 flex items-center gap-3">
-                 <span className="w-2 h-8 bg-white"></span> Résultats Attendus
-              </h2>
-              
-              <div className="space-y-6">
-                 
-                 {/* Card 1 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-gray-500 transition-colors duration-300 hover:-translate-y-1">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-gray-600/20 p-3 rounded">
-                          <HeartHandshake className="w-6 h-6 text-gray-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-gray-300 transition-colors">Gestion Respectueuse des Défunts</h3>
-                          <p className="text-gray-400 text-sm leading-relaxed">
-                             Manipulation professionnelle et soins adaptés, garantissant le respect et la dignité en tout temps.
-                          </p>
-                       </div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <HeartHandshake className="w-8 h-8 text-slate-400" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">GESTION DIGNE</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Soins de conservation et de présentation. Nous veillons à ce que l'image du défunt soit préservée pour le recueillement des proches.
+                            </p>
+                        </div>
                     </div>
-                 </div>
+                </div>
 
-                 {/* Card 2 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-gray-500 transition-colors duration-300 hover:-translate-y-1">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-gray-600/20 p-3 rounded">
-                          <Users className="w-6 h-6 text-gray-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-gray-300 transition-colors">Accompagnement des Familles</h3>
-                          <p className="text-gray-400 text-sm leading-relaxed">
-                             Offrir des informations claires et un soutien psychologique adapté pour faciliter le processus de deuil.
-                          </p>
-                       </div>
+                {/* Card 2 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-gray-500/50 p-6 rounded transition-all duration-300">
+                     <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-gray-400" />
                     </div>
-                 </div>
-
-                 {/* Card 3 */}
-                 <div className="group bg-white/5 border border-white/10 p-6 hover:border-gray-500 transition-colors duration-300 hover:-translate-y-1">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-gray-600/20 p-3 rounded">
-                          <ClipboardList className="w-6 h-6 text-gray-400" />
-                       </div>
-                       <div>
-                          <h3 className="text-xl font-bold uppercase mb-2 group-hover:text-gray-300 transition-colors">Transfert et Coordination</h3>
-                          <p className="text-gray-400 text-sm leading-relaxed">
-                             Coordination minutieuse du transport et des documents nécessaires, assurant un service sans tracas pour les familles.
-                          </p>
-                       </div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <ClipboardList className="w-8 h-8 text-gray-400" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">LOGISTIQUE & TRANSFERT</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Flotte de véhicules adaptés et discrets. Coordination avec les autorités (LSPD) pour les transferts depuis la voie publique.
+                            </p>
+                        </div>
                     </div>
-                 </div>
+                </div>
 
-              </div>
-           </div>
+                {/* Card 3 */}
+                <div className="group relative bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 hover:border-zinc-500/50 p-6 rounded transition-all duration-300">
+                     <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight className="text-zinc-400" />
+                    </div>
+                    <div className="flex gap-4">
+                        <div className="mt-1">
+                            <FileText className="w-8 h-8 text-zinc-400" />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-white mb-2 font-mono">ADMINISTRATION LÉGALE</h4>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Gestion complète des certificats de décès et des formalités administratives. Accompagnement des familles dans les démarches.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
+                {/* Zone de Call to Action RP */}
+                <div className="mt-8 p-4 border border-dashed border-slate-700 rounded bg-slate-900/50 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-slate-500/5 pointer-events-none"></div>
+                    <p className="text-xs text-slate-500 font-mono uppercase mb-2">Ligne Directe 24/7</p>
+                    <button className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded font-bold text-sm transition-colors w-full uppercase tracking-widest shadow-[0_0_20px_rgba(100,116,139,0.3)] hover:shadow-[0_0_30px_rgba(100,116,139,0.5)]">
+                        Contacter la Régulation
+                    </button>
+                </div>
+
+            </div>
         </div>
       </div>
 

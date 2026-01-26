@@ -8,6 +8,7 @@ import Pssd from './pages/Pssd';
 import Gos from './pages/Gos';
 import Ams from './pages/Ams';
 import Sar from './pages/Sar';
+import Faq from './pages/Faq'; // <--- J'ai ajouté l'import ici
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path="/gos" element={<Gos />} />
         <Route path="/ams" element={<Ams />} />
         <Route path="/sar" element={<Sar />} />
+
+        {/* Route vers la FAQ */}
+        <Route path="/faq" element={<Faq />} /> {/* <--- J'ai ajouté la route ici */}
         
       </Routes>
     </Router>
