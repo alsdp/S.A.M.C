@@ -141,7 +141,7 @@ const Pssd = () => {
                         </div>
 
                         <p className="text-slate-300 italic leading-relaxed font-light mb-6">
-                            "J'ai voulu créer le Pôle PSS parce que j’ai pris conscience de l’urgence. En voyant mes collègues et les citoyens traverser des crises émotionnelles ou des traumatismes violents sans soutien, j'ai compris qu'il nous manquait une armure. Pas en kevlar, mais psychologique."
+                            "J'ai voulu créer le Pôle Psychological Support Service (PSS) parce que j’ai vraiment pris conscience de l’importance de l’accompagnement psychologique aujourd’hui. En voyant de plus en plus de personnes autour de moi traverser des crises émotionnelles, des épreuves traumatisantes ou des changements de vie sans le soutien adéquat, j’ai compris qu’il y avait un besoin urgent."
                         </p>
                         
                         <div className="flex justify-end">
@@ -240,7 +240,7 @@ const Pssd = () => {
                         <div>
                             <h4 className="text-lg font-bold text-white mb-2 font-mono">RÉSILIENCE MENTALE</h4>
                             <p className="text-sm text-slate-400 leading-relaxed">
-                                Développement de mécanismes de défense sains. Préparation mentale pour les services d'urgence (LSPD, EMS) face aux scènes difficiles.
+                                Développement de mécanismes de défense sains. Préparation mentale pour les services d'urgence (SASP, EMS) face aux scènes difficiles.
                             </p>
                         </div>
                     </div>
