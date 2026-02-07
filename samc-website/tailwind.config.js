@@ -6,6 +6,12 @@ export default {
   ],
   theme: {
     extend: {
+      // AJOUT ICI : On définit un écran "xs" (extra small) pour ton format 280px
+      screens: {
+        'xs': '280px', 
+      },
+      // Fin de l'ajout
+
       fontFamily: {
         sans: ['Oswald', 'sans-serif'],
         anton: ['Anton', 'sans-serif'],
