@@ -4,12 +4,12 @@ import {
   ArrowLeft, ShieldAlert, Trash2, UserPlus, Stethoscope, 
   MapPin, Save, Upload, Loader2, Search, Users, 
   CalendarDays, Phone, X, FileText, Clock, Check, AlertCircle, RefreshCw,
-  Pen, Lock, LogOut, Key // <--- Ajout des icônes de sécurité
+  Pen, Lock, LogOut, Key 
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
 const API_URL = "http://localhost/api/admin.php";
-const ADMIN_PASSWORD = "S@MC-Riviere-Bleu-99!"; // ⚠️ À changer pour ton vrai mot de passe
+const ADMIN_PASSWORD = "S@MC-Riviere-Bleu-99!"; 
 
 const AVAILABLE_DEPTS = [
     { id: 'CONSULTATION GÉNÉRALE', label: 'Général', color: 'bg-blue-500' }, 

@@ -14,7 +14,7 @@ import Admin from './pages/Admin';
 
 function App() {
   return (
-    // ⚠️ IMPORTANT : Le <Router> doit être le parent ABSOLU
+    
     <Router> 
       
       <div className="relative w-full min-h-screen min-w-[280px] bg-[#09090b] text-white overflow-x-hidden font-sans text-sm md:text-base">
@@ -34,7 +34,7 @@ function App() {
       </div>
 
     </Router> 
-    // ⚠️ Fin du Router
+    
   );
 }
 

@@ -4,7 +4,7 @@ import {
   Menu, Phone, Shield, Siren, Activity, Stethoscope, 
   ChevronRight, Crosshair, Brain, Skull, Baby, Mountain, 
   X, HelpCircle, Lock, AlertTriangle, MessageCircle, Home as HomeIcon,
-  Calendar, Key // <-- AJOUT DE L'ICÔNE CLEF
+  Calendar, Key 
 } from 'lucide-react';
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
     { to: "/faq", label: "Centre d'Aide", icon: HelpCircle },
   ];
 
-  // Classe utilitaire pour l'effet verre standard
+  
   const glassCard = "bg-white/[0.02] backdrop-blur-lg border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]";
 
   return (
@@ -224,10 +224,8 @@ const Home = () => {
         ))}
       </div>
 
-      {/* --- SECTION SERVICES GLASS (Identique à l'original, code raccourci pour lisibilité) --- */}
+      {/* --- SECTION SERVICES GLASS  --- */}
        <div className="relative bg-[#09090b] z-10 py-16 md:py-32 overflow-hidden">
-         {/* ... (Contenu identique à ta version précédente) ... */}
-         {/* Pour gagner de la place ici, j'ai remis le bloc services tel quel dans le rendu final */}
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse duration-[10s]"></div>
          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse duration-[10s] delay-5000"></div>
 
