@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, Phone, Shield, Siren, Activity, Stethoscope, 
   ChevronRight, Crosshair, Brain, Skull, Baby, Mountain, 
-  X, HelpCircle, Lock, AlertTriangle, MessageCircle, Home as HomeIcon 
+  X, HelpCircle, Lock, AlertTriangle, MessageCircle, Home as HomeIcon,
+  Calendar, Key // <-- AJOUT DE L'ICÔNE CLEF
 } from 'lucide-react';
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
 
   const menuItems = [
     { to: "/", label: "Accueil", icon: HomeIcon },
+    { to: "/rdv", label: "Prendre Rendez-vous", icon: Calendar },
     { to: "/surgery", label: "Surgery Care", icon: Stethoscope },
     { to: "/pssd", label: "Psychological Support", icon: Brain },
     { to: "/gos", label: "Gynecology & Obstretics", icon: Baby },
@@ -39,9 +41,7 @@ const Home = () => {
            onClick={() => setIsMenuOpen(false)}
          ></div>
 
-         {/* Ajout de l'effet glass intense sur le menu latéral */}
          <div className={`absolute right-0 top-0 h-full w-[300px] bg-black/40 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} flex flex-col border-l border-white/10 overflow-hidden`}>
-            {/* Petit effet de reflet interne */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
 
             <div className="flex items-center justify-between p-6 pb-4 relative z-10 border-b border-white/5">
@@ -80,9 +80,13 @@ const Home = () => {
                })}
             </div>
 
-            <div className="p-6 border-t border-white/5 bg-black/20 space-y-4 relative z-10">
-                <a href="#" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm group">
-                    <MessageCircle className="w-4 h-4 group-hover:text-blue-400 transition-colors" /> <span>Support</span>
+            {/* AJOUT DU LIEN ADMIN DANS LE BAS DU MENU */}
+            <div className="p-4 border-t border-white/5 bg-black/20 relative z-10 space-y-3">
+                <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 text-gray-500 hover:text-red-400 transition-colors text-xs font-mono uppercase tracking-widest group p-2 rounded hover:bg-white/5">
+                    <Lock className="w-3 h-3 group-hover:text-red-500 transition-colors" /> <span>Accès Personnel</span>
+                </Link>
+                <a href="#" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm group px-2">
+                    <MessageCircle className="w-4 h-4 group-hover:text-blue-400 transition-colors" /> <span>Support Technique</span>
                 </a>
             </div>
          </div>
@@ -135,7 +139,6 @@ const Home = () => {
              </div>
           </div>
           
-          {/* Bouton Menu Glass */}
           <button 
             onClick={() => setIsMenuOpen(true)}
             className="group flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all duration-300 cursor-pointer shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"
@@ -169,14 +172,15 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Text Box Glass Refined */}
             <p className={`max-w-lg text-gray-300 text-sm md:text-lg font-light leading-relaxed animate-enter delay-300 p-6 rounded-2xl border border-red-500/20 relative overflow-hidden group ${glassCard}`}>
                <span className="absolute top-0 left-0 w-1 h-full bg-red-600/60 group-hover:bg-red-500 transition-colors duration-500"></span>
                <span className="absolute -top-10 -right-10 w-32 h-32 bg-red-600/10 rounded-full blur-[50px] pointer-events-none group-hover:bg-red-600/20 transition-colors duration-500"></span>
                <b className="text-white font-medium">Le S.A.M.C.</b> déploie ses unités d'élite. Rapidité chirurgicale. Dévouement total.
             </p>
 
-            <div className="flex flex-wrap gap-8 mt-8 md:mt-12 animate-enter delay-300">
+            <div className="flex flex-wrap gap-6 mt-8 md:mt-12 animate-enter delay-300">
+              
+              {/* BOUTON 1 : URGENCE 911 */}
               <button className="group relative px-8 py-4 md:px-12 md:py-6 bg-gradient-to-r from-red-700 to-red-900 text-white font-bold uppercase tracking-[0.2em] overflow-hidden transform skew-x-[-10deg] hover:from-red-600 hover:to-red-800 transition-all shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.7)] text-xs md:text-base rounded-lg border border-red-500/30">
                 <div className="absolute inset-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
                 <div className="absolute inset-0 w-1 bg-white/30 translate-x-[-100%] group-hover:translate-x-[500%] transition-transform duration-700 blur-sm"></div>
@@ -185,6 +189,17 @@ const Home = () => {
                   <span className="drop-shadow">Appel 911</span>
                 </div>
               </button>
+
+              {/* BOUTON 2 : PRENDRE RDV */}
+              <Link to="/rdv" className="group relative px-8 py-4 md:px-12 md:py-6 bg-blue-900/30 text-blue-200 font-bold uppercase tracking-[0.2em] overflow-hidden transform skew-x-[-10deg] hover:bg-blue-600 hover:text-white transition-all shadow-[0_0_30px_rgba(37,99,235,0.2)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)] text-xs md:text-base rounded-lg border border-blue-500/30 backdrop-blur-md">
+                 <div className="absolute inset-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                 <div className="absolute inset-0 w-1 bg-white/30 translate-x-[-100%] group-hover:translate-x-[500%] transition-transform duration-700 blur-sm"></div>
+                 <div className="skew-x-[10deg] flex items-center gap-3 md:gap-4 relative z-10">
+                   <Calendar className="w-4 h-4 md:w-5 md:h-5 drop-shadow" />
+                   <span className="drop-shadow">Prendre RDV</span>
+                 </div>
+              </Link>
+
             </div>
           </div>
         </div>
@@ -196,6 +211,7 @@ const Home = () => {
           { icon: Phone, text: "URGENCE VITALE : 911", color: "text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]" },
           { icon: Shield, text: "PILLBOX HILL : 24/7", color: "text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]" },
           { icon: Activity, text: "DON DU SANG ", color: "text-white drop-shadow" },
+          { icon: Calendar, text: "CONSULTATION SUR RDV", color: "text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]" },
           { icon: Phone, text: "URGENCE : 911", color: "text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]" },
         ].map((item, i) => (
           <React.Fragment key={i}>
@@ -208,9 +224,10 @@ const Home = () => {
         ))}
       </div>
 
-      {/* --- SECTION SERVICES GLASS --- */}
+      {/* --- SECTION SERVICES GLASS (Identique à l'original, code raccourci pour lisibilité) --- */}
        <div className="relative bg-[#09090b] z-10 py-16 md:py-32 overflow-hidden">
-         {/* Orbs de lumière d'ambiance pour l'effet glass */}
+         {/* ... (Contenu identique à ta version précédente) ... */}
+         {/* Pour gagner de la place ici, j'ai remis le bloc services tel quel dans le rendu final */}
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse duration-[10s]"></div>
          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse duration-[10s] delay-5000"></div>
 
@@ -223,18 +240,15 @@ const Home = () => {
                     <span className="tracking-[0.2em] md:tracking-[0.4em] uppercase">Sector Alpha • Medical Wing</span>
                  </div>
                  <h2 className="text-4xl md:text-8xl font-anton text-white uppercase tracking-tight leading-none drop-shadow-lg">
-                    Nos Départements
+                   Nos Départements
                  </h2>
                </div>
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-             
-             {/* 1. Surgery Care Service (SCS) - BLUE GLASS */}
+             {/* 1. Surgery Care Service (SCS) */}
              <Link to="/surgery" className={`group relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 ${glassCard} hover:border-blue-500/30 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.3)]`}>
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-700 transform group-hover:scale-110 mix-blend-overlay"></div>
-                
-                {/* Contenu Glass Overlay */}
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm border-t border-white/5">
                    <div className="w-12 h-12 bg-blue-600/80 backdrop-blur-md flex items-center justify-center mb-4 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:scale-110 transition-transform border border-white/10">
                       <Stethoscope className="w-6 h-6 text-white" />
@@ -249,7 +263,7 @@ const Home = () => {
                 </div>
              </Link>
 
-             {/* 2. PSSD - PURPLE GLASS */}
+             {/* 2. PSSD */}
              <Link to="/pssd" className={`group relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 ${glassCard} hover:border-purple-500/30 hover:shadow-[0_20px_40px_-10px_rgba(147,51,234,0.3)]`}>
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1604881991720-f91add269bed?q=80&w=687&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-700 transform group-hover:scale-110 mix-blend-overlay"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm border-t border-white/5">
@@ -266,7 +280,7 @@ const Home = () => {
                 </div>
              </Link>
 
-              {/* 3. GOS - PINK GLASS */}
+              {/* 3. GOS */}
               <Link to="/gos" className={`group relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 ${glassCard} hover:border-pink-500/30 hover:shadow-[0_20px_40px_-10px_rgba(219,39,119,0.3)]`}>
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1609741200145-7401a2c32e4e?q=80&w=627&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-700 transform group-hover:scale-110 mix-blend-overlay"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm border-t border-white/5">
@@ -283,7 +297,7 @@ const Home = () => {
                 </div>
              </Link>
 
-             {/* 4. AMS - GRAY GLASS */}
+             {/* 4. AMS */}
              <Link to="/ams" className={`group relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 ${glassCard} hover:border-gray-400/30 hover:shadow-[0_20px_40px_-10px_rgba(156,163,175,0.3)]`}>
                 <div className="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1725408021124-21990ff260c8?q=80&w=1170&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-700 transform group-hover:scale-110 mix-blend-overlay"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm border-t border-white/5">
@@ -300,7 +314,7 @@ const Home = () => {
                 </div>
              </Link>
 
-             {/* 5. SAR - ORANGE GLASS */}
+             {/* 5. SAR */}
              <Link to="/sar" className={`group relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden transition-all duration-500 lg:col-span-2 block hover:-translate-y-2 ${glassCard} hover:border-orange-500/30 hover:shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)]`}>
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1692176961746-e3b5aeb9669a?q=80&w=880&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-700 transform group-hover:scale-110 mix-blend-overlay"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm border-t border-white/5">
@@ -317,8 +331,8 @@ const Home = () => {
                 </div>
              </Link>
            </div>
-         </div>
-       </div>
+        </div>
+      </div>
 
       {/* --- FOOTER GLASS --- */}
       <footer className="relative bg-[#09090b] border-t border-white/5 py-12 md:py-24 overflow-hidden relative z-20">
@@ -347,10 +361,15 @@ const Home = () => {
 
                <div className="mt-20 pt-8 border-t border-white/5 w-full flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-mono uppercase tracking-widest backdrop-blur-sm bg-white/[0.01] rounded-t-xl p-4">
                   <p>&copy; 2024 S.A.M.C - Los Santos </p>
-                  <div className="flex gap-8 mt-4 md:mt-0">
-                     <Link to="/faq" className="hover:text-red-400 cursor-pointer transition-colors hover:underline">FAQ</Link>
-                     <span className="hover:text-red-400 cursor-pointer transition-colors hover:underline">Discord</span>
-                     <span className="hover:text-red-400 cursor-pointer transition-colors hover:underline">Gouvernement</span>
+                  
+                  {/* AJOUT DU LIEN ADMIN DANS LE FOOTER (PETIT CADENAS) */}
+                  <div className="flex items-center gap-6 mt-4 md:mt-0">
+                      <Link to="/admin" className="hover:text-red-500 transition-colors flex items-center gap-1 group" title="Accès Admin">
+                          <Key className="w-3 h-3 group-hover:rotate-45 transition-transform" />
+                      </Link>
+                      <Link to="/faq" className="hover:text-red-400 cursor-pointer transition-colors hover:underline">FAQ</Link>
+                      <span className="hover:text-red-400 cursor-pointer transition-colors hover:underline">Discord</span>
+                      <span className="hover:text-red-400 cursor-pointer transition-colors hover:underline">Gouvernement</span>
                   </div>
                </div>
             </div>

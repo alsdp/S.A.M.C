@@ -1,21 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowLeft, Stethoscope, Activity, Siren, 
-  HeartPulse, ShieldAlert, Microscope, ChevronRight 
+  HeartPulse, ShieldAlert, Microscope, ChevronRight, X, Hammer 
 } from 'lucide-react';
 
 const Surgery = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // On garde l'état de la modale au cas où tu voudrais l'utiliser pour d'autres boutons,
+  // mais le bouton principal redirige maintenant vers /rdv
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="min-h-screen min-w-[280px] bg-[#020617] text-slate-200 font-sans selection:bg-cyan-500/30 overflow-x-hidden">
+    <div className="min-h-screen min-w-[280px] bg-[#020617] text-slate-200 font-sans selection:bg-cyan-500/30 overflow-x-hidden relative">
       
+      {/* --- LA MODALE (Toujours présente dans le code si besoin, mais inactive sur le bouton principal) --- */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            <div 
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                onClick={() => setIsModalOpen(false)}
+            ></div>
+
+            <div className="relative bg-slate-900 border border-cyan-500/50 p-6 md:p-8 rounded-2xl max-w-sm w-full shadow-[0_0_50px_rgba(6,182,212,0.3)] transform transition-all scale-100">
+                <button 
+                    onClick={() => setIsModalOpen(false)}
+                    className="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+
+                <div className="flex flex-col items-center text-center space-y-4">
+                    <div className="p-3 bg-cyan-500/10 rounded-full">
+                        <Hammer className="w-8 h-8 text-cyan-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white font-mono">EN DÉVELOPPEMENT</h3>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Ce service n'est pas encore disponible. Nos équipes techniques travaillent dessus.
+                    </p>
+                    <button 
+                        onClick={() => setIsModalOpen(false)}
+                        className="mt-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded text-sm font-bold uppercase tracking-wider transition-colors w-full"
+                    >
+                        Compris
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
+
       {/* --- AMBIANCE DE FOND (GRID & GLOW) --- */}
       <div className="fixed inset-0 pointer-events-none z-0">
-         {/* Grille technique en fond */}
          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:2rem_2rem] md:bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
-         {/* Lueurs d'ambiance - Ajustées pour mobile */}
          <div className="absolute top-[-10%] right-[-5%] w-[200px] md:w-[500px] h-[200px] md:h-[500px] bg-blue-600/20 rounded-full blur-[80px] md:blur-[120px]"></div>
          <div className="absolute bottom-[-10%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-cyan-600/10 rounded-full blur-[80px] md:blur-[120px]"></div>
       </div>
@@ -24,7 +61,6 @@ const Surgery = () => {
       <header className="relative pt-16 pb-6 md:pt-24 md:pb-12 overflow-hidden z-10">
         <div className="container mx-auto px-4 md:px-6 relative">
           
-          {/* Fil d'ariane stylisé */}
           <Link to="/" className="inline-flex items-center gap-2 text-cyan-500 hover:text-cyan-300 transition-colors mb-6 md:mb-10 font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] border-b border-cyan-500/30 pb-1">
              <ArrowLeft className="w-3 h-3" /> Retour Dashboard
           </Link>
@@ -36,7 +72,6 @@ const Surgery = () => {
                  <span className="text-cyan-400 font-mono text-[10px] md:text-xs uppercase tracking-widest">Dép. Prioritaire</span>
               </div>
               
-              {/* TITRE RESPONSIVE : Commence à 3xl pour tenir sur 280px */}
               <h1 className="text-3xl xs:text-4xl md:text-8xl font-black uppercase text-white leading-[0.9] tracking-tighter mb-4 md:mb-6 break-words">
                 Bloc <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Opératoire</span>
               </h1>
@@ -46,7 +81,6 @@ const Surgery = () => {
               </p>
             </div>
 
-            {/* Indicateur de Status (Caché sur très petits écrans, visible sur Tablette/PC) */}
             <div className="hidden md:block text-right">
                 <div className="flex items-center gap-2 justify-end text-emerald-400 font-mono text-sm mb-1">
                    <span className="relative flex h-3 w-3">
@@ -61,12 +95,11 @@ const Surgery = () => {
         </div>
       </header>
 
-      {/* --- STATS HUD (GRID 2x2 sur Mobile pour gagner de la place) --- */}
+      {/* --- STATS HUD --- */}
       <div className="border-y border-white/5 bg-slate-900/40 backdrop-blur-sm z-20 relative">
          <div className="container mx-auto px-4 md:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-white/5 border-l border-r border-white/5">
                
-               {/* Stat 1 */}
                <div className="p-4 md:py-6 md:px-6 flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-4 text-center md:text-left group cursor-default">
                    <div className="p-2 md:p-3 bg-blue-500/10 rounded group-hover:bg-blue-500/20 transition">
                        <Activity className="w-4 h-4 md:w-6 md:h-6 text-blue-400" />
@@ -77,7 +110,6 @@ const Surgery = () => {
                    </div>
                </div>
 
-               {/* Stat 2 */}
                <div className="p-4 md:py-6 md:px-6 flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-4 text-center md:text-left group cursor-default">
                    <div className="p-2 md:p-3 bg-cyan-500/10 rounded group-hover:bg-cyan-500/20 transition">
                        <Stethoscope className="w-4 h-4 md:w-6 md:h-6 text-cyan-400" />
@@ -88,7 +120,6 @@ const Surgery = () => {
                    </div>
                </div>
 
-               {/* Stat 3 */}
                <div className="p-4 md:py-6 md:px-6 flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-4 text-center md:text-left group cursor-default">
                    <div className="p-2 md:p-3 bg-red-500/10 rounded group-hover:bg-red-500/20 transition">
                        <Siren className="w-4 h-4 md:w-6 md:h-6 text-red-500 animate-pulse" />
@@ -99,7 +130,6 @@ const Surgery = () => {
                    </div>
                </div>
 
-                 {/* Stat 4 */}
                  <div className="p-4 md:py-6 md:px-6 flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-4 text-center md:text-left group cursor-default">
                    <div className="p-2 md:p-3 bg-purple-500/10 rounded group-hover:bg-purple-500/20 transition">
                        <Microscope className="w-4 h-4 md:w-6 md:h-6 text-purple-400" />
@@ -247,12 +277,18 @@ const Surgery = () => {
                     </div>
                 </div>
 
-                {/* Call to Action RP */}
-                <div className="mt-8 p-4 border border-dashed border-slate-700 rounded bg-slate-900/50 text-center">
+                {/* Call to Action RP - MODIFIÉ POUR LIEN RDV */}
+                <div className="mt-8 p-4 border border-dashed border-slate-700 rounded bg-slate-900/50 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-cyan-500/5 pointer-events-none"></div>
                     <p className="text-[10px] md:text-xs text-slate-500 font-mono uppercase mb-2">Besoin d'une consultation ?</p>
-                    <button className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 md:px-6 py-2 rounded font-bold text-xs md:text-sm transition-colors w-full uppercase tracking-widest">
+                    
+                    {/* LE LIEN VERS LA PAGE RDV EST ICI */}
+                    <Link 
+                        to="/rdv"
+                        className="block w-full bg-cyan-600 hover:bg-cyan-500 text-white px-4 md:px-6 py-2 rounded font-bold text-xs md:text-sm transition-colors uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] cursor-pointer z-50 relative"
+                    >
                         Contacter un Chirurgien
-                    </button>
+                    </Link>
                 </div>
 
             </div>

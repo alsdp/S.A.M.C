@@ -20,7 +20,6 @@ const Faq = () => {
             answer: (
                 <>
                     Pour pouvoir faire votre candidature au sein du S.A.M.C, il vous faut simplement postuler avec le formulaire que vous pourrez trouver en 
-                    {/* --- MODIFICATION ICI : AJOUT DU LIEN (<a>) --- */}
                     <a 
                         href="https://discord.gg/EQCuSHX6" 
                         target="_blank" 
@@ -42,15 +41,13 @@ const Faq = () => {
             answer: (
                 <>
                     Vous souhaitez prendre rendez-vous ? Il vous suffit de remplir le formulaire suivant en 
-                    {/* --- MODIFICATION ICI : AJOUT DU LIEN (<a>) --- */}
-                    <a 
-                        href="https://votre-lien-rdv-ici.com" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                    {/* --- MODIFICATION ICI : LIEN INTERNE VERS /rdv --- */}
+                    <Link 
+                        to="/rdv" 
                         className="text-blue-400 font-bold cursor-pointer hover:underline ml-1"
                     >
                         cliquant ici
-                    </a>.
+                    </Link>.
                     Un médecin vous contactera pour confirmer l'horaire.
                 </>
             )

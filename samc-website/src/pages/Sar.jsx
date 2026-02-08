@@ -1,16 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowLeft, Mountain, Flame, Waves, Anchor, 
-  Wind, ShieldCheck, Siren, Activity, Compass, LifeBuoy, ChevronRight 
+  Wind, ShieldCheck, Siren, Activity, Compass, LifeBuoy, ChevronRight,
+  X, Hammer // Ajout des icônes pour la modale
 } from 'lucide-react';
 
 const Sar = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // --- NOUVEAU : État pour gérer l'ouverture de la fenêtre ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="min-h-screen min-w-[280px] bg-[#020617] text-slate-200 font-sans selection:bg-orange-500/30 overflow-x-hidden">
+    <div className="min-h-screen min-w-[280px] bg-[#020617] text-slate-200 font-sans selection:bg-orange-500/30 overflow-x-hidden relative">
       
+      {/* --- NOUVEAU : LA MODALE (Version Orange pour S.A.R) --- */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Fond sombre et flou */}
+            <div 
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                onClick={() => setIsModalOpen(false)}
+            ></div>
+
+            {/* La fenêtre elle-même (Bordures Orange) */}
+            <div className="relative bg-slate-900 border border-orange-500/50 p-6 md:p-8 rounded-2xl max-w-sm w-full shadow-[0_0_50px_rgba(249,115,22,0.3)] transform transition-all scale-100">
+                
+                {/* Bouton fermer (X) */}
+                <button 
+                    onClick={() => setIsModalOpen(false)}
+                    className="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+
+                {/* Contenu */}
+                <div className="flex flex-col items-center text-center space-y-4">
+                    <div className="p-3 bg-orange-500/10 rounded-full">
+                        <Hammer className="w-8 h-8 text-orange-400" />
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-white font-mono">EN DÉVELOPPEMENT</h3>
+                    
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                        Ce service n'est pas encore disponible. Nos équipes techniques travaillent dessus pour l'activer prochainement.
+                    </p>
+
+                    <button 
+                        onClick={() => setIsModalOpen(false)}
+                        className="mt-2 bg-orange-600 hover:bg-orange-500 text-white px-6 py-2 rounded text-sm font-bold uppercase tracking-wider transition-colors w-full"
+                    >
+                        Compris
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
+      {/* ------------------------------------------------ */}
+
       {/* --- AMBIANCE DE FOND (GRID & GLOW ORANGE) --- */}
       <div className="fixed inset-0 pointer-events-none z-0">
          {/* Grille technique */}
@@ -36,7 +84,7 @@ const Sar = () => {
                  <span className="text-orange-400 font-mono text-[10px] md:text-xs uppercase tracking-widest">Opérations Spéciales</span>
               </div>
               
-              {/* TITRE RESPONSIVE : 3xl sur mobile pour éviter la casse */}
+              {/* TITRE RESPONSIVE */}
               <h1 className="text-3xl xs:text-4xl md:text-8xl font-black uppercase text-white leading-[0.9] tracking-tighter mb-4 md:mb-6">
                 Search & <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">Rescue</span>
               </h1>
@@ -228,9 +276,6 @@ const Sar = () => {
                         </div>
                         <div>
                             <h4 className="text-base md:text-lg font-bold text-white mb-2 font-mono">A.S.U (AIR SUPPORT)</h4>
-                            
-                            
-
                             <p className="text-xs md:text-sm text-slate-400 leading-relaxed mt-2">
                                 Unité héliportée pour extraction Medevac. Rapidité de projection sur zones inaccessibles.
                             </p>
@@ -256,11 +301,14 @@ const Sar = () => {
                     </div>
                 </div>
 
-                {/* CTA */}
+                {/* CTA - BOUTON CONTACT QUI OUVRE LA MODALE */}
                 <div className="mt-8 p-4 border border-dashed border-slate-700 rounded bg-slate-900/50 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-orange-500/5 pointer-events-none"></div>
                     <p className="text-[10px] md:text-xs text-slate-500 font-mono uppercase mb-2">Urgence Absolue ?</p>
-                    <button className="bg-orange-600 hover:bg-orange-500 text-white px-4 md:px-6 py-2 rounded font-bold text-xs md:text-sm transition-colors w-full uppercase tracking-widest shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)]">
+                    <button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-orange-600 hover:bg-orange-500 text-white px-4 md:px-6 py-2 rounded font-bold text-xs md:text-sm transition-colors w-full uppercase tracking-widest shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] cursor-pointer z-50 relative"
+                    >
                         Déclencher une Alerte
                     </button>
                 </div>
